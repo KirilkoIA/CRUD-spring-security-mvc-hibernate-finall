@@ -12,19 +12,26 @@
         <th>ID</th>
         <th>Name</th>
         <th>Last name</th>
+        <th>Email</th>
+        <th>Password</th>
         <th>Age</th>
     </tr>
     <tr th:each="user, rowStat: ${usersList}">
         <td><span th:text="${user.id}"> ID </span></td>
         <td><span th:text="${user.name}"> Name </span></td>
         <td><span th:text="${user.lastName}"> Last name </span></td>
+        <td><span th:text="${user.email}"> Email </span></td>
+        <td><span th:text="${user.password}"> Password </span></td>
         <td><span th:text="${user.age}"> Age </span></td>
-        <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
-        <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
+        <td><a th:href="@{/admin/edit/{id}(id=${user.id})}">Edit</a></td>
+        <td><a th:href="@{/admin/delete/{id}(id=${user.id})}">Delete</a></td>
     </tr>
 </table>
 <div>
-    <a href="/add">Add a new User</a>
+    <a href="/admin/add">Add a new User</a>
+</div>
+<div>
+    <a href="/logout">Logout</a>
 </div>
 </body>
 </html>

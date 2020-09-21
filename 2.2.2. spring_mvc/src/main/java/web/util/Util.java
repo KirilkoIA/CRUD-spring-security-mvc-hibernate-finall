@@ -11,9 +11,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import web.dao.UserDaoHibernate;
-import web.service.UserServiceImpl;
 
 import javax.sql.DataSource;
 import java.util.Objects;
@@ -21,13 +21,16 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:db.properties")
-@EnableJpaRepositories(basePackages = "java")
+@EnableJpaRepositories(basePackages = "web")
 
 @EnableTransactionManagement
-@ComponentScan(value = "java")
+@ComponentScan(value = "web")
 public class Util {
-    @Autowired
-    private Environment env;
+    private final Environment env;
+
+    public Util(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource getDataSource() {
@@ -54,20 +57,10 @@ public class Util {
     }
 
     @Bean
-    public JpaTransactionManager transactionManager() {
+    public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(getEntityManager().getObject());
         return transactionManager;
-    }
-
-    @Bean
-    public UserServiceImpl getUserService() {
-        return new UserServiceImpl();
-    }
-
-    @Bean
-    public UserDaoHibernate getUserDao() {
-        return new UserDaoHibernate();
     }
 
 }
