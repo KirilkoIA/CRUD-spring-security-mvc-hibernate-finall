@@ -8,9 +8,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
+import web.model.Role;
 import web.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,6 +48,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByName(String name) {
         return userDao.getUserByName(name);
+    }
+
+    @Override
+    public Role getRoleByName(String name) {
+        return userDao.getRoleByName(name);
+    }
+
+    @Override
+    public Set<Role> getAllRoles() {
+        return userDao.getAllRoles();
     }
 
 }

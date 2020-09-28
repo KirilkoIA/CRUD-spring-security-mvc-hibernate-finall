@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org" >
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,10 +16,15 @@
         <input type="text" th:field="*{email}" id="email" placeholder="Email">
         <label for="password">Password</label>
         <input type="text" th:field="*{password}" id="password" placeholder="Password">
-        <label for="roles">Role</label>
-        <input type="text" th:field="*{roles}" id="roles" placeholder="Role">
         <label for="age">Age</label>
         <input type="number" th:field="*{age}" id="age" placeholder="Age">
+        <label th:for="roles">Role</label>
+        <select multiple th:name="myRoles" size="3" th:id="roles" required>
+            <option value=""> -- </option>
+            <option th:each="role : ${rolesSet}"
+                    th:value="${role.getName()}"
+                    th:text="${role.getName()}"/>
+        </select>
         <input type="submit" value="Edit User">
     </table>
 </form>
